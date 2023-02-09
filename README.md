@@ -1,1 +1,1 @@
-#vue-emojis-gallery
+# vue-emojis-gallery
