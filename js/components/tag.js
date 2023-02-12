@@ -5,7 +5,7 @@ export default {
   :class="{
       'text-blue-600 border-blue-600': selected
   }"
- @click="toggle">
+ @click="toggle(tag)">
     {{tag}}
   </div>
   `,
@@ -19,22 +19,40 @@ export default {
 
   data() {
     return {
-      selected: this.isSelected,
+      selected: false,
       currentTag: this.tag,
     };
   },
   methods: {
-    toggle() {
-      if (this.currentTag !== "All") {
-        this.$emit("tagClick");
+    toggle(tag) {
+      let isTagOn = true;
+      if (tag !== "All") {
+        if (this.selected == true) {
+          isTagOn = false;
+        }
+        this.selected = !this.selected;
+        this.$emit("tagClick", isTagOn, tag);
       } else {
         this.$emit("allTagClick");
       }
     },
   },
-  created() {
+  mounted() {
     if (this.currentTag === "All") {
       this.selected = true;
+    }
+  },
+
+  updated() {
+    if (this.isSelected == true) {
+      if (this.currentTag === "All") {
+        this.selected = false;
+      }
+    } else {
+      this.selected = false;
+      if (this.currentTag === "All") {
+        this.selected = true;
+      }
     }
   },
 };
