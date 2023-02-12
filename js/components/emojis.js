@@ -16,7 +16,8 @@ export default {
       'hover:border-orange-600': (color === 'orange'),
       'hover:border-pink-600': (color === 'pink'),
     }"
-    @mouseover="changeColor"
+    @mouseover="mouseHover"
+    @mouseleave="mouseLeave"
     >
       {{emoji.emoji}} 
     </div>
@@ -45,6 +46,14 @@ export default {
         "pink",
       ];
       this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
+    },
+    mouseHover() {
+      this.changeColor();
+      this.$emit("emojiHover", this.emoji.description, this.emoji.emoji);
+    },
+
+    mouseLeave() {
+      this.$emit("emojiLeave", "", "");
     },
   },
 };

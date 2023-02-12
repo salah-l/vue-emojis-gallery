@@ -5,7 +5,7 @@ export default {
     tag,
   },
   template: `
-    <section class="w-full flex flex-wrap gap-3">
+    <section class="w-auto flex flex-wrap gap-3">
         <tag v-for="tag in tags" :key="tag" :tag="tag" @tagClick="unselectTheAllTag" @allTagClick="unselectAllTags" :isSelected="isSelected" />
     </section>
     `,

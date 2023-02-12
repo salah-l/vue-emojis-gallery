@@ -1,19 +1,21 @@
 import emojis from "./emojis.js";
 import tags from "./tags.js";
+import emojiLabel from "./emojiLabel.js";
 import emojisData from "../../db/emoji.js";
 
 export default {
-  components: { emojis, tags },
+  components: { emojis, tags, emojiLabel },
   template: `
   <section class="space-y-6 w-4/6">
     <div class="flex justify-center mt-12 ">
       <h1 class="text-2xl">💫⭐ Emojis Gallery ⭐💫</h1>
     </div>
-    <div class="flex justify-center mt-12 ">
+    <div class="flex justify-between mt-12">
       <tags :tags="getTags" @tagClicked="filterGrid"/>
+      <emoji-label :selected-emoji="selectedEmoji"/>
     </div>
     <div class="border rounded border-gray-400 flex gap-20 items-start px-24 py-16 flex-wrap overflow-y-scroll parent h-[70vh]">
-      <emojis v-for="emoji in emojis" :emoji="emoji" :key="emoji.description"/>
+      <emojis v-for="emoji in emojis" :emoji="emoji" :key="emoji.description" @emojiHover="getEmojiName" @emojiLeave="getEmojiName"/>
     </div>
   </section>
   `,
@@ -21,6 +23,7 @@ export default {
     return {
       allEmojis: emojisData.emojis,
       emojis: emojisData.emojis,
+      selectedEmoji: "",
     };
   },
   computed: {
@@ -43,6 +46,10 @@ export default {
           selectedTags.includes(emoji.category)
         );
       }
+    },
+    getEmojiName(name, emoji) {
+      this.selectedEmoji =
+        emoji + " " + name.charAt(0).toUpperCase() + name.slice(1);
     },
   },
 };
