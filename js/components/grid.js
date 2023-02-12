@@ -10,11 +10,11 @@ export default {
     <div class="flex justify-center mt-12 ">
       <h1 class="text-2xl">💫⭐ Emojis Gallery ⭐💫</h1>
     </div>
-    <div class="flex justify-between mt-12">
+    <div class="flex lg:flex-row flex-col lg:gap-0 gap-4 justify-between mt-12">
       <tags :tags="getTags" @tagClicked="filterGrid"/>
       <emoji-label :selected-emoji="selectedEmoji"/>
     </div>
-    <div class="border rounded border-gray-400 flex gap-20 items-start px-24 py-16 flex-wrap overflow-y-scroll parent h-[70vh]">
+    <div class="border rounded border-gray-400 flex gap-20 items-start justify-start sm:px-24 px-10 py-16 flex-wrap overflow-y-scroll h-[70vh]">
       <emojis v-for="emoji in emojis" :emoji="emoji" :key="emoji.description" @emojiHover="getEmojiName" @emojiLeave="getEmojiName"/>
     </div>
   </section>
